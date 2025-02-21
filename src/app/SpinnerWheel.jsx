@@ -10,6 +10,11 @@ const RouletteWheel = () => {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [showWinningAnimation, setShowWinningAnimation] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const data = [
     { 
@@ -85,6 +90,10 @@ const RouletteWheel = () => {
       audio.play();
     }
   }, [mustSpin, showWinningAnimation]);
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen p-8 flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 via-purple-900 to-violet-900  relative overflow-hidden">
