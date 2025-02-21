@@ -19,14 +19,14 @@ const RouletteWheel = () => {
   const data = [
     { 
       id: 'promo_buy3get1',
-      option: 'Buy 2 Get 1',
+      option: 'Buy 3 Get 1 Free',
       style: { backgroundColor: '#FF6B9C', textColor: 'white', fontSize: 24 },
       icon: <Tag className="w-3 h-3" />,
       isPromo: true
     },
     { 
       id: 'promo_3free',
-      option: '3 Free',
+      option: 'Any 3 Products Free',
       style: { backgroundColor: '#F72585', textColor: 'white', fontSize: 24 },
       icon: <Gift className="w-3 h-3" />,
       isPromo: true
