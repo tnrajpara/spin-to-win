@@ -44,7 +44,7 @@ const RouletteWheel = () => {
 
   const getRandomNumber = () => {
     // You can adjust these probabilities later as needed
-    const probabilities = [0.45,0.45, 0.02, 0.28];
+    const probabilities = [0.35,0.35, 0.02, 0.28];
     
     const random = Math.random();
     let sum = 0;
