@@ -4,37 +4,39 @@ import React, { useState, useEffect } from 'react';
 import { Wheel } from 'react-custom-roulette';
 import { motion } from 'framer-motion';
 import { bangers } from './fonts';
-import { Tag, Percent, Gift } from 'lucide-react';
+import { Tag, Percent, Gift, X } from 'lucide-react';
 
 const RouletteWheel = () => {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [showWinningAnimation, setShowWinningAnimation] = useState(false);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
+  
   const data = [
     { 
       id: 'promo_buy3get1',
       option: 'Buy 3 Get 1 Free',
-      style: { backgroundColor: '#FF6B9C', textColor: 'white', fontSize: 24 },
+      style: { backgroundColor: '#FF6B9C', textColor: 'white', fontSize: 16 },
       icon: <Tag className="w-3 h-3" />,
       isPromo: true
     },
     { 
+      id: 'better_luck',
+      option: 'Better Luck Next Time',
+      style: { backgroundColor: '#666666', textColor: 'white', fontSize: 16 },
+      icon: <X className="w-3 h-3" />,
+      isPromo: false
+    },
+    { 
       id: 'promo_3free',
-      option: 'Any 3 Products Free',
-      style: { backgroundColor: '#F72585', textColor: 'white', fontSize: 24 },
+      option: 'Any 3 Items Free',
+      style: { backgroundColor: '#F72585', textColor: 'white', fontSize: 16  },
       icon: <Gift className="w-3 h-3" />,
       isPromo: true
     },
     { 
       id: 'promo_15off',
       option: '15% Off',
-      style: { backgroundColor: '#4361EE', textColor: 'white', fontSize: 24 },
+      style: { backgroundColor: '#4361EE', textColor: 'white', fontSize: 16 },
       icon: <Percent className="w-3 h-3" />,
       isPromo: true
     }
@@ -42,7 +44,7 @@ const RouletteWheel = () => {
 
   const getRandomNumber = () => {
     // You can adjust these probabilities later as needed
-    const probabilities = [0.70, 0.02, 0.28];
+    const probabilities = [0.45,0.45, 0.02, 0.28];
     
     const random = Math.random();
     let sum = 0;
@@ -85,15 +87,13 @@ const RouletteWheel = () => {
   };
 
   useEffect(() => {
-    if (!mustSpin && showWinningAnimation) {
+    if (!mustSpin && showWinningAnimation && data[prizeNumber].isPromo) {
       const audio = new Audio('/music-effect.mp3');
       audio.play();
     }
   }, [mustSpin, showWinningAnimation]);
 
-  if (!isClient) {
-    return null;
-  }
+
 
   return (
     <div className="min-h-screen p-8 flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 via-purple-900 to-violet-900  relative overflow-hidden">
@@ -132,9 +132,9 @@ const RouletteWheel = () => {
             className={`bg-white/10 backdrop-blur-md rounded-xl shadow-lg p-6 w-full max-w-md border border-white/20 mb-6 ${bangers.className}`}
           >
             <div className="text-center">
-              <p className="text-2xl font-bold text-white">
-                <span className="text-yellow-400">★ {data[prizeNumber].option} ★</span>
-              </p>
+                <span className={data[prizeNumber].isPromo ? "text-yellow-400" : "text-gray-300"}>
+                {data[prizeNumber].isPromo ? <span> ★ {data[prizeNumber].option} ★ </span> : <span> {data[prizeNumber].option} </span> }
+                </span>
               {/* <p className="text-xl text-white mt-2 flex items-center justify-center gap-2">
                 {data[prizeNumber].icon && <span>{data[prizeNumber].icon}</span>}
                 {data[prizeNumber].option}
@@ -147,7 +147,7 @@ const RouletteWheel = () => {
         <div className="flex flex-col items-center pb-24">
           {/* Wheel Container */}
           <motion.div 
-            className="relative w-96 h-96 mb-24"
+            className="relative w-96 h-96 mb-24  ml-12 md:ml-0"
             animate={{
               scale: mustSpin ? 1.05 : 1,
             }}
@@ -168,7 +168,7 @@ const RouletteWheel = () => {
               innerBorderWidth={2}
               radiusLineColor="#ffffff10"
               radiusLineWidth={1}
-              fontSize={24}
+              fontSize={18}
               textDistance={60}
 
               renderPrizeSection={({ option, icon }) => renderSegmentContent(option, icon)}
