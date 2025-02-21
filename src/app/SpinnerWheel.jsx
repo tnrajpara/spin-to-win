@@ -35,7 +35,7 @@ const RouletteWheel = () => {
     },
     { 
       id: 'promo_15off',
-      option: '15% Off',
+      option: '15% Off (Above 300Rs),
       style: { backgroundColor: '#4361EE', textColor: 'white', fontSize: 16 },
       icon: <Percent className="w-3 h-3" />,
       isPromo: true
